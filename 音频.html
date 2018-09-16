@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>作业一</title>
+	<meta charset="utf-8"/>
+	<style>
+		#div1{
+			width: 380px;
+			height: 500px;
+			background-color: #E6E6FA;
+			border: 2px solid cadetblue;
+		}
+		#div2{
+			width: 190px;
+			height: 45px;
+			background-color:#4169E1;
+			float: left; 
+		}
+		#div3{
+			width: 190px;
+			height: 45px;
+			background-color: #000033;
+			float: left;
+		}
+		.word{
+			color: white;
+			size: a4;
+			text-align: center;
+			display: block;
+			line-height: 45px;
+		}
+		#div5{
+			width: 380px;
+			height: 53px;
+			background-color: #000033;
+			margin-top: 377px;
+		}
+		#audio2{
+			margin-left: 35px;
+		}
+		#begin{
+			margin-left: 180px;;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2"><span class="word">在线音乐</span></div>
+		<div id="div3"><span class="word">本地音乐</span></div>
+		<div id="div4">			
+			&nbsp;&nbsp;&nbsp;素颜 -许嵩
+			<button id="begin" type="button" >播放</button>
+			<button id="stop" type="button">暂停</button>
+
+		</div>
+		<div id="div5">
+			<audio id="audio2" controls="controls">
+				<source src="素颜.mp3" type="audio/mpeg" >
+				您的浏览器不支持audio
+			</audio>
+		</div>
+	</div>
+<body>
+	<script>
+		var begin=document.getElementById("begin");
+		var stop=document.getElementById("stop");
+		var audio2=document.getElementById("audio2");
+		begin.onclick=function(){
+			if(audio2.paused){
+				audio2.play();
+			}
+		}
+		stop.onclick=function(){
+			if(audio2.played){
+				audio2.pause();
+			}
+		}		
+	</script>
+</html>
+
