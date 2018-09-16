@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+		</title>
+		<style>
+			#fieldset1{
+				height: 65px;
+				width: 520px;
+			}
+			#input2{
+				width: 70px;;
+			}
+			#fieldset2{
+				height: 45px;
+				width: 520px;
+			}
+			#input3{
+				width: 200px;;
+			}
+			#span{
+				color: red;
+			}
+			.on{
+				display: none;
+			}
+			#list{
+				background-color: white;
+				position: absolute;
+				background:#fff;
+				
+			}
+			#list ul li{
+				list-style-type: none;
+				margin-left: -30px;
+				margin-right: 10;
+			}	
+		</style>
+		<script type="text/javascript">
+		    function $$(id){
+				return document.getElementById(id);
+			}
+			var lists;
+			var len;
+			window.onload=function(){
+				var objtxt=$$("mail1");
+				var objlist=$$("list");
+		        lists=objlist.getElementsByTagName("li");
+		        len=lists.length;
+		        for(var i=1;i<len;i++){
+		            lists[i].onmousedown=function(){
+		                objtxt.value=this.textContent;
+		                objlist.style.display="none";
+		            }
+		        }
+		        objtxt.onfocus=function(){
+		            objlist.style.display="block";
+		        }
+		        objtxt.onblur=function(){
+		            objlist.style.display="none";
+		        }
+		        objtxt.onkeyup=function(){
+		            var txt=this.value;
+		            var flag="";
+		            if(txt.indexOf("@")>0){
+		                flag=txt.substring(txt.indexOf("@")-1);//获取的输入的@开始的内容
+		                txt=txt.substring(0,txt.indexOf("@"));
+		            }else{
+		                flag="";
+		            }
+		            var val="";
+		            for(var i=1; i<len; i++){
+		                val=lists[i].textContent;
+		                val=val.substring(val.indexOf("@"));
+		                lists[i].textContent=txt+val;
+		            }
+		            if(flag!=""){
+		                var reg=new RegExp(flag,"i");
+		                for(var i=1;i<len;i++){
+		                    if(reg.test(lists[i].textContent)){
+		                        lists[i].style.display="block";
+		                    }else{
+		                        lists[i].style.display="none";
+		                    }
+		                }
+		            }
+		        }
+		    }
+		</script>
+	</head>
+	<body>
+		<!--基本信息-->
+		<h1>请填写个人信息</h1>
+		<fieldset id="fieldset1">
+			<legend style="color: red;">基本信息</legend>
+			姓名<input type="text" placeholder="请输入姓名"/>
+			<span id="span">*</span>
+			<br />
+			年龄<input type="number" value="20" id="input2"/>			
+		</fieldset>
+		<br />
+		<fieldset id="fieldset2">
+			<legend style="color: red;">你想在哪里收到邮件？</legend>
+			邮箱
+			<input id="mail1" type="text" autocomplete="off" name="email" rule="" style="ime-mode: disabled;">
+			<div id="list" style="display: none;">
+			  <ul>
+			    <li class="on"></li>
+			    <li>@qq.com</li>
+			    <li>@163.com</li>
+			    <li>@126.com</li>
+			    <li>@sina.com</li>
+			    <li>@yahoo.com.cn</li>
+			    <li>@sohu.com</li>
+			    <li>@yahoo.cn</li>
+			  </ul>
+			</div>
+			<span id="span">*</span>
+		</fieldset>
+		<br />
+		<fieldset id="fieldset1">
+			<legend style="color: red;">收入情况</legend>
+			月收入
+			<select name="salary">
+				<option value="">20k+</option>
+				<option value="">15k+</option>
+				<option value="">10k+</option>
+			</select>
+			<br />
+			银行卡<input type="number" id="input3"/>
+			有效期<input type="date" />
+		</fieldset>
+		<br />
+		<fieldset id="fieldset2">
+			<legend style="color: red;">选取提交文件</legend>
+			文件<input type="file" />
+		</fieldset>
+		<br/>
+		<input type="submit"/>
+	</body>
+</html>
