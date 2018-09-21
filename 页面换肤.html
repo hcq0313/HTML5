@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		#field{
+			width: 630px;
+			height: 170px;
+		}
+		#lege{
+			color: red;
+			font-size: x-large;
+			font-weight: 600;
+		}
+		#field2{
+			width: 597px;
+			height: 27px;
+			margin-top: 10px;	
+		}
+		#div{
+			width: 560px;
+			height: 50px;
+			background-color: lightblue;
+			margin: auto;
+			margin-top: 22px;
+		}
+		.divs{
+			width: 20px;
+			height: 20px;
+			margin-top: 5px;
+			margin-left: 12px;
+			float: left;
+		}
+		#d1{
+			background-color: pink;
+		}
+		#d2{
+			background-color: yellow;
+		}
+		#d3{
+			background-color: orange;
+		}
+		#d4{
+			background-color: green;
+		}
+		#d5{
+			background-color: lightblue;
+		}
+		#d6{
+			background-color: purple;
+		}
+	</style>
+	<body>
+		<fieldset id="field">
+			
+			<legend id="lege">页面换肤</legend>
+			
+			<fieldset id="field2">
+				<div id="d1" class="divs"></div>
+				<div id="d2" class="divs"></div>
+				<div id="d3" class="divs"></div>
+				<div id="d4" class="divs"></div>
+				<div id="d5" class="divs"></div>
+				<div id="d6" class="divs"></div>
+			</fieldset>
+			
+			<div id="div">
+				 Cookie 的作用是与服务器进行交互，作为 HTTP 规范的一部分而 存在 ，
+				 而 Web Storage 是为了在本地“存储”数据而生。
+			</div>
+		</fieldset>
+	</body>
+	<script>
+		function getE(id) {
+            return document.getElementById(id);
+        }
+
+		//变色
+		for(let i=1;i<7;i++){				
+			getE("d"+i).onclick=function(){			
+				getE("d1").style.marginTop="5px";
+				getE("d2").style.marginTop="5px";
+				getE("d3").style.marginTop="5px";
+				getE("d5").style.marginTop="5px";
+				getE("d4").style.marginTop="5px";
+				getE("d6").style.marginTop="5px";
+				var w = getComputedStyle(getE("d"+i),false).backgroundColor;//谷歌获取css样式用getComputedStyle
+				getE("div").style.backgroundColor=w;
+				this.style.marginTop="1px";
+				localStorage.setItem("color",getComputedStyle(getE("d"+i),false).backgroundColor);						
+			}	
+			var color = localStorage.getItem("color");
+			if(color){
+				getE("div").style.backgroundColor = color;
+			}
+		}		
+	</script>
+</html>
