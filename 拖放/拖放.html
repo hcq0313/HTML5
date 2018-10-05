@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="icon" href="Images/snowflake.png" />
+    <style>
+        #result{
+            border: 1px solid #A9A9A9;
+            padding: 10px;
+            margin: 10px;
+            width: 310px;
+            height: 315px;
+        }
+        #title{
+        	margin-left: 120px;;
+        }
+    </style>
+</head>
+<body>
+<h2 id="title">上传头像</h2>
+<div id="result"></div>
+
+<script>
+	var result = document.getElementById("result");
+	
+   	//取消浏览器默认的事件处理
+    document.ondragover = function (ev) {
+        ev.preventDefault();  
+    };
+    document.ondrop = function (ev) {
+        ev.preventDefault();  
+    };
+
+    result.ondragover = function (ev) {
+        ev.preventDefault();
+    };
+
+    result.ondrop = function (ev) {
+        var file = ev.dataTransfer.files[0];
+        if(!/image\/\w+/.test(file.type))
+	    {
+	        alert("请确保文件为图像类型");
+	        return false;
+	    }   
+        readAsDataURL(file);
+    };
+
+	function readAsDataURL(ev) {
+    	if(!window.FileReader){
+    		alert("您的浏览器不支持FileReader，请安装最新的浏览器！");
+    	}else{
+    		var reader = new FileReader();
+        	reader.readAsDataURL(ev);
+        	reader.onload = function(){
+	            var img = new Image();
+	            img.src = this.result;
+	            result.appendChild(img);
+        	}
+    	}   
+    }
+	
+</script>
+</body>
+</html>
