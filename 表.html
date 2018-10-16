@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>时钟</title>
+	</head>
+	<style>
+		#canvas{
+			display: block;
+			margin: 60px auto;
+			border:2px solid lightblue;
+		}
+		
+	</style>
+	<body>
+		<canvas id="canvas" width='500' height="500"></canvas>
+		<script>
+			var canvas = document.getElementById("canvas");
+			var context = canvas.getContext("2d");
+			setInterval(clock, 1000);
+			/*时钟*/
+			function clock() {
+				
+				context.clearRect(0,0,500,500);
+				/*外圈*/
+				context.beginPath();
+				context.strokeStyle = "lawngreen";
+				context.lineWidth = 10;
+				context.arc(250, 250, 200, 0, 2*Math.PI, true);
+				context.stroke();
+				context.font = "18px arial";
+				context.closePath();
+				
+				/*时针刻度*/
+				for (var i = 0; i < 12; i++) {
+					context.save();
+					context.translate(250, 250);
+					context.lineWidth = 6;
+					context.strokeStyle = "red";
+					context.rotate(i * Math.PI/6);
+					context.beginPath();
+					context.moveTo(0, -176);
+					context.lineTo(0, -191);
+					context.stroke();
+					context.closePath();
+					context.restore();
+				}
+				
+                /*数字绘制*/
+                for (var i = 1; i <= 12; i++) {
+                    context.save();
+                    context.translate(250, 250);
+                    var x = Math.sin(i * Math.PI/6)*160;
+                    var y = -Math.cos(i * Math.PI/6)*160;
+                    context.textAlign = 'center';
+                    context.textBaseline = 'middle';
+                    context.fillText(i, x, y);
+                    context.closePath();
+                    context.restore();
+                }
+                
+                 /*分针刻度*/
+				for(var i= 0; i< 60; i++) {
+					if (i % 5) {
+						context.save();
+						context.lineWidth = 4;
+						context.strokeStyle = "black";
+						context.translate(250, 250);
+						context.beginPath();
+						context.rotate(i * Math.PI/30);
+						context.moveTo(0, -181);
+						context.lineTo(0, -191);
+						context.stroke();
+						context.closePath();
+						context.restore();
+					}
+				}
+				
+				var time = new Date();
+				var hour = time.getHours() > 11? time.getHours()-12: time.getHours();
+				var minutes = time.getMinutes();
+				var second = time.getSeconds();
+				/*时针*/
+				context.save();
+				context.translate(250, 250);
+				context.beginPath();
+				context.strokeStyle = "purple";
+				context.lineWidth = 6;
+				context.rotate((hour *30 + minutes/2) *Math.PI/180);
+				context.moveTo(0 , 20);
+				context.lineTo(0, -80);
+				context.stroke();
+				context.closePath();
+				context.restore();
+				
+				/*分针*/
+				context.save();
+				context.translate(250, 250);
+				context.lineWidth = 3;
+				context.strokeStyle = "pink";
+				context.beginPath();
+				context.rotate(minutes*6*Math.PI/180);
+				context.moveTo(0, 20);
+				context.lineTo(0, -110);
+				context.stroke();
+				context.closePath();
+				context.restore();
+				
+				/*秒针*/
+				context.save();
+				context.translate(250, 250);
+				context.lineWidth = 2;
+				context.beginPath();
+				context.strokeStyle = "red";
+				context.arc(0, 0 , 8, 0, 2*Math.PI);
+				context.fillStyle = "red";
+				context.fill();
+				context.closePath();
+				
+				context.beginPath();
+				context.rotate(second* Math.PI/30);
+				context.moveTo(0, 20);
+				context.lineTo(0, -130);
+				context.stroke();
+				context.closePath();
+				
+				context.beginPath();
+				context.arc(0,-108,5,0,2*Math.PI);
+				context.fillStyle = "red";
+				context.fill();
+				context.closePath();
+				
+				context.beginPath();
+				context.arc(0,-108,3,0,2*Math.PI);
+				context.fillStyle = "black";
+				context.fill();
+				context.closePath();
+				
+				context.beginPath();
+				context.arc(0, 0 , 4, 0, Math.PI*2);
+				context.fillStyle = "black";
+				context.fill();
+				context.closePath();
+				
+				context.restore();
+			}
+			
+		</script>
+	</body>
+</html>
